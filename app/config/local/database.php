@@ -23,7 +23,7 @@ return array(
 		'mysql' => array(
 			'driver'    => 'mysql',
 			'host'      => 'localhost',
-			'database'  => 'saleboss',
+			'database'  => 'sale_boss',
 			'username'  => 'root',
 			'password'  => '',
 			'charset'   => 'utf8',
