@@ -134,7 +134,8 @@ return array(
         'SaleBoss\Services\Leads\LeadServiceProvider',
         'Maatwebsite\Excel\ExcelServiceProvider',
 		'Laracasts\Commander\CommanderServiceProvider',
-		'Laracasts\Validation\ValidationServiceProvider'
+		'Laracasts\Validation\ValidationServiceProvider',
+		'Fenos\Notifynder\NotifynderServiceProvider'
 	),
 
 	/*
@@ -206,7 +207,8 @@ return array(
         'MenuBuilder'     => 'SaleBoss\Services\Menu\Facades\MenuBuilder',
 		'CommonPresenter' => 'SaleBoss\Services\Presenters\Facades\CommonPresenter',
         'Excel'           => 'Maatwebsite\Excel\Facades\Excel',
-        'ThrottleL'       => 'SaleBoss\Services\Leads\Presenter\Facades\ThrottleL'
+        'ThrottleL'       => 'SaleBoss\Services\Leads\Presenter\Facades\ThrottleL',
+        'Notifynder'      => 'Fenos\Notifynder\Facades\Notifynder'
 	),
 
 );
