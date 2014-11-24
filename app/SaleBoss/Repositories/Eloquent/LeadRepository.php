@@ -210,8 +210,8 @@ class LeadRepository extends AbstractRepository implements LeadRepositoryInterfa
 
     public function getRemindableLeads(User $user, $nextDay, $int = 50)
     {
-        $todayStart = Carbon::createFromTimestamp(strtotime('tomorrow') - (24 * 60 * 60))->toDateTimeString();
-        $nextDay = Carbon::createFromTimestamp(strtotime('tomorrow') - (24 * 60 * 60))->addDays($nextDay)->toDateTimeString();
+        $todayStart = Carbon::createFromTimestamp(strtotime('tomorrow') - (24 * 60 * 60))->setTime(0,0,0)->toDateTimeString();
+        $nextDay = Carbon::createFromTimestamp(strtotime('tomorrow') - (24 * 60 * 60))->setTime(0,0,0)->addDays(1)->toDateTimeString();
         return $user->createdLeads()->whereBetween('remind_at', [$todayStart, $nextDay])
                     ->with('tags','phones')
                     ->orderBy('remind_at','ASC')
