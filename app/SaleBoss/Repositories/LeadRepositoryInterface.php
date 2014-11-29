@@ -59,6 +59,8 @@ interface LeadRepositoryInterface {
 
     public function getRemindableLeads(User $user, $nextDay, $int = 50);
 
+    public function getTodayRemindingLeadsCount(User $user);
+
     public function getUserAllLeads(User $user);
 
     public function getUserAllLeadsApproved(User $user);

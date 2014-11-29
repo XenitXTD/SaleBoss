@@ -1,4 +1,5 @@
-<?php return array(
+<?php
+return array(
 	'panel_types'	=>	array(
 		'عادی',
 		'رایگان',
@@ -46,5 +47,15 @@
         'created_at'        =>  'تاریخ ایجاد',
         'updated_at'        =>  'تاریخ بروز رسانی',
         'id'                =>  'شناسه'
-    )
+    ),
+    'notifications_categories'  =>  array(
+        'Leads' => 'Leads',
+        'Users' =>  'Users',
+        'TodayLeads' => 'TodayLeads'
+    ),
+    'notifications_types'  =>  array(
+        'Lead' => 'SaleBoss\Models\Lead',
+        'User' =>  'SaleBoss\Models\User'
+    ),
+
 );

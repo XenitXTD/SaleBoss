@@ -3,6 +3,7 @@
 use Carbon\Carbon;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Event;
 use SaleBoss\Models\Lead;
 use SaleBoss\Models\User;
 use SaleBoss\Repositories\Exceptions\InvalidArgumentException;
@@ -10,6 +11,7 @@ use SaleBoss\Repositories\Exceptions\RepositoryException;
 use SaleBoss\Repositories\LeadRepositoryInterface;
 use SaleBoss\Repositories\PhoneRepositoryInterface;
 use SaleBoss\Repositories\TagRepositoryInterface;
+use SaleBoss\Services\Notification\Facades\Notification;
 use Whoops\Example\Exception;
 
 class LeadRepository extends AbstractRepository implements LeadRepositoryInterface {
@@ -211,11 +213,30 @@ class LeadRepository extends AbstractRepository implements LeadRepositoryInterfa
     public function getRemindableLeads(User $user, $nextDay, $int = 50)
     {
         $todayStart = Carbon::createFromTimestamp(strtotime('tomorrow') - (24 * 60 * 60))->setTime(0,0,0)->toDateTimeString();
-        $nextDay = Carbon::createFromTimestamp(strtotime('tomorrow') - (24 * 60 * 60))->setTime(0,0,0)->addDays(1)->toDateTimeString();
-        return $user->createdLeads()->whereBetween('remind_at', [$todayStart, $nextDay])
+        $nextDay2 = Carbon::createFromTimestamp(strtotime('tomorrow') - (24 * 60 * 60))->setTime(0,0,0)->addDays($nextDay)->toDateTimeString();
+
+        $leads = $user->createdLeads()->whereBetween('remind_at', [$todayStart, $nextDay2])
                     ->with('tags','phones')
                     ->orderBy('remind_at','ASC')
                     ->take($int)->get();
+
+        return $leads;
+
+    }
+
+    public function getTodayRemindingLeadsCount(User $user)
+    {
+        $todayStart = Carbon::createFromTimestamp(strtotime('tomorrow') - (24 * 60 * 60))->setTime(0,0,0)->toDateTimeString();
+        $nextDay = Carbon::createFromTimestamp(strtotime('tomorrow') - (24 * 60 * 60))->setTime(0,0,0)->addDays(1)->toDateTimeString();
+
+        $leads =  $user->createdLeads()->whereBetween('remind_at', [$todayStart, $nextDay])
+                      ->with('tags','phones')
+                      ->orderBy('remind_at','ASC')
+                      ->get()->count();
+
+        if($leads and !Notification::checkTodayLeadsIsExist())
+            Event::fire('notifications.todayleads.unread', $leads);
+        return $leads;
     }
 
     /**

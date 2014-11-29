@@ -26,7 +26,7 @@ Route::group(["namespace" => "Controllers"], function(){
      *
      * @see \SaleBoss\Filters\SimpleAccessFilter
      */
-    Route::group(['before' => 'auth'],function(){
+    Route::group(['before' => ['auth', 'Notification']],function(){
         Route::get('dash','UserController@getDash');
         Route::get('auth/logout','AuthController@getLogout');
 	    Route::resource('menu','MenuController',['except' => ['show','index']]);
@@ -51,6 +51,7 @@ Route::group(["namespace" => "Controllers"], function(){
         Route::put("me/edit","UserController@profileUpdate");
 	    Route::get('me/leads','MyLeadsController@index');
 	    Route::post('me/leads','MyLeadsController@store');
+	    Route::get('me/leads/unreads', array('as' => 'LeadsUnreads', 'uses' =>'MyLeadsController@unReads'));
 	    Route::delete('me/leads/{lead_id}','MyLeadsController@destroy');
         Route::put('me/leads/{lead_id}','MyLeadsController@update');
         Route::get('stats/whole','StatsController@whole');
@@ -79,3 +80,4 @@ Route::group(["namespace" => 'Controllers\Opilo'],function(){
 	    Route::put('orders/support_approve/{id}','OrderController@supporterUpdate');
     });
 });
+

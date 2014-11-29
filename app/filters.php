@@ -24,6 +24,17 @@ App::after(function($request, $response)
 
 /*
 |--------------------------------------------------------------------------
+| Notification Filters
+|--------------------------------------------------------------------------
+|
+| The following filters are used to check some base notifications for user
+|
+*/
+
+Route::filter('Notification', 'SaleBoss\Services\Notification\Filter\NotificationFilters');
+
+/*
+|--------------------------------------------------------------------------
 | Authentication Filters
 |--------------------------------------------------------------------------
 |

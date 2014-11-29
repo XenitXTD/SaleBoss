@@ -7,5 +7,7 @@ return [
 
     'listeners' => [
 
+        'event.*' => 'SaleBoss\Events\Notification'
+
     ]
 ];

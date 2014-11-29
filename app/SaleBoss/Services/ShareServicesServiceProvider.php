@@ -6,8 +6,10 @@ use Illuminate\Support\ServiceProvider;
 class ShareServicesServiceProvider extends ServiceProvider {
 
     public function boot(){
-        $dashboard= $this->app->make('SaleBoss\Services\User\Dashboard');
-        if( Sentry::getUser() ) { $this->setViews($dashboard); }
+
+        $this->app['view']->composer('admin.pages.dashboard.partials._my_notifications', 'SaleBoss\Services\Notification\Notification');
+        $this->app->events->subscribe('SaleBoss\Events\NotificationEventHandler');
+
     }
     /**
      * Register the service provider.
@@ -18,11 +20,4 @@ class ShareServicesServiceProvider extends ServiceProvider {
     {
     }
 
-    public function setViews($dash){
-        $dash->setUser(Sentry::getUser());
-        $data = $dash->getHisDash();
-        foreach($data as $key => $value){
-            View::share($key,$value);
-        }
-    }
 }

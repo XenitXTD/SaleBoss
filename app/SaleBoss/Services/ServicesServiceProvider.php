@@ -1,5 +1,9 @@
 <?php namespace SaleBoss\Services;
 use Illuminate\Support\ServiceProvider;
+use SaleBoss\Services\Authenticator\AuthenticatorInterface;
+use SaleBoss\Services\Authenticator\SentryAuthenticator;
+use SaleBoss\Repositories\NotificationRepositoryInterface;
+use SaleBoss\Repositories\Eloquent\NotificationRepository;
 
 class ServicesServiceProvider extends ServiceProvider {
 
@@ -11,8 +15,13 @@ class ServicesServiceProvider extends ServiceProvider {
     public function register()
     {
         $this->app->bind(
-            'SaleBoss\Services\Authenticator\AuthenticatorInterface',
-            'SaleBoss\Services\Authenticator\SentryAuthenticator'
+            AuthenticatorInterface::class,
+            SentryAuthenticator::class
+        );
+
+        $this->app->bind(
+            NotificationRepositoryInterface::class,
+            NotificationRepository::class
         );
 
     }

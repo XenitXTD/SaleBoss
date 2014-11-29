@@ -106,5 +106,15 @@ Event::listen('illuminate.query', function($query, $bindings, $time, $name)
 	}
 });
 
+/*
+|--------------------------------------------------------------------------
+| Register Notification Events
+|--------------------------------------------------------------------------
+| We want to check what panel are sending to user by notifications
+|
+*/
+
+Notifynder::bootListeners();
+
 View::share('opiloConfig',Config::get('saleboss/opilo_configs'));
 require app_path().'/filters.php';

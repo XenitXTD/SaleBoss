@@ -77,4 +77,9 @@ class MyLeadsController extends BaseController
             return $this->redirectBack()->withErrors($e->getErrors());
         }
 	}
+
+	public function unReads()
+	{
+
+	}
 } 

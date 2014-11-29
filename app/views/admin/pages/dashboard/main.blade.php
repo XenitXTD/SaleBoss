@@ -3,6 +3,8 @@
 	<li class="active"><i class="fa fa-dashboard"></i> داشبورد</li>
 @stop
 @section('content')
+
+
 <div class="row" style="margin-bottom: 15px">
 	<div class="col-md-7 col-sm-12">
 		@include('admin.pages.dashboard.partials._declaration')

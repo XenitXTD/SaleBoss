@@ -19,7 +19,7 @@ return array(
      * Do you want have notifynder that work polymorphically?
      * just swap the value to true and you will able to use it!
      */
-    'polymorphic' => false,
+    'polymorphic' => true,
 
     /**
      * If you need to extend the model class of
@@ -27,7 +27,7 @@ return array(
      * With the path / NameSpace of your model and extend it
      * to Fenos\Notifynder\Models\Notification
      */
-    'notification_model' => 'Fenos\Notifynder\Models\Notification',
+    'notification_model' => 'SaleBoss\Models\Notification',
 
     /**
      * If you wish to have the translation file in another path

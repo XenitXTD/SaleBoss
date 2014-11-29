@@ -1,9 +1,11 @@
 <?php namespace SaleBoss\Services\User;
 
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Input;
 use Laracasts\Commander\CommanderTrait;
 use SaleBoss\Models\User;
+use SaleBoss\Repositories\Eloquent\UnreadList;
 use SaleBoss\Repositories\LeadRepositoryInterface;
 use SaleBoss\Repositories\OrderRepositoryInterface;
 use SaleBoss\Repositories\StateRepositoryInterface;
@@ -76,7 +78,6 @@ class Dashboard implements DashboardInterface {
 		$orderChart = $this->orderChart();
 		$myLeadStats = $this->ownLeadStats();
         $remindingLeads = $this->getRemindingLeads(7);
-        $remindingLeadsNotify = $this->getRemindingLeads(0);
         $leadStats = $this->leadStats();
 		return compact (
 			'userQueue',
@@ -88,8 +89,7 @@ class Dashboard implements DashboardInterface {
 			'orderChart',
 			'myLeadStats',
             'leadStats',
-            'remindingLeads',
-			'remindingLeadsNotify'
+            'remindingLeads'
 		);
 	}
 
@@ -191,5 +191,10 @@ class Dashboard implements DashboardInterface {
     {
         return  $this->leadRepo->getRemindableLeads($this->auth->user(), $nextDay, 50);
     }
+
+	public  function getTodayRemindingLeadsCount()
+	{
+		return  $this->leadRepo->getTodayRemindingLeadsCount($this->auth->user());
+	}
 
 }

@@ -11,14 +11,7 @@
 
         <div class="navbar-buttons navbar-header pull-left">
           <ul class="nav ace-nav">
-                <li class="red @if(Route::getCurrentRoute()->getPath() == 'dash') @if($leadsNotify) @if(! $remindingLeadsNotify->isEmpty()) open  @endif @endif @endif">
-                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                        <i class="ace-icon fa fa-bell"></i>
-                        <span class="badge badge-important">{{count($remindingLeadsNotify)}}</span>
-                    </a>
-                        @include('admin.pages.dashboard.partials._my_notify_leads')
-
-                </li>
+                @include('admin.pages.dashboard.partials._my_notifications')
                 <!-- #section:basics/navbar.user_menu -->
                 <li class="light-blue profile-dropmenu">
                     <a data-toggle="dropdown" href="#" class="dropdown-toggle">
