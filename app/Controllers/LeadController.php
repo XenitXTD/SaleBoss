@@ -259,4 +259,16 @@ class LeadController extends BaseController
         return $this->view('admin.pages.lead.all', compact('user', 'leads'));
     }
 
+    public function notReads()
+    {
+        if (!$this->auth->user()->hasAnyAccess(['leads.user']))
+        {
+            return $this->redirectTo('dash')->with('error_message','شما اجازه مشاهده لیدهای کاربران دیگر را ندارید.');
+        }
+        $user = $this->userRepo->findById($this->auth->user()->getId());
+
+        $leads = $this->leadRepo->getRemindableLeads($user, 1);
+
+        return $this->view('admin.pages.lead.my_notread_list', compact('user', 'leads'));
+    }
 }

@@ -1,11 +1,9 @@
 <?php namespace SaleBoss\Services\User;
 
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Input;
 use Laracasts\Commander\CommanderTrait;
 use SaleBoss\Models\User;
-use SaleBoss\Repositories\Eloquent\UnreadList;
 use SaleBoss\Repositories\LeadRepositoryInterface;
 use SaleBoss\Repositories\OrderRepositoryInterface;
 use SaleBoss\Repositories\StateRepositoryInterface;

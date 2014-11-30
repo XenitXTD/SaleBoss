@@ -45,7 +45,12 @@ class Notification implements NotificationInterface {
 	public function compose($view)
     {
 	    $view->with('notifications', null);
-	    $view->with('notifications', $this->getTodayNotReadLeadsNotificationsCount());
+	    $view->with(
+		    array(
+			    'TodayLeadsNotificationsCount' => $this->getTodayNotReadLeadsNotificationsCount(),
+			    'TodayLeadsNotificationsList' => $this->getTodayNotReadLeadsNotifications(),
+		    )
+	    );
     }
 
 	/**
@@ -90,7 +95,28 @@ class Notification implements NotificationInterface {
 		    'first_time' => Carbon::createFromTimestamp(strtotime('tomorrow') - (24 * 60 * 60))->setTime(0,0,0)->toDateTimeString(),
 		    'second_time' => Carbon::createFromTimestamp(strtotime('tomorrow') - (24 * 60 * 60))->setTime(0,0,0)->addDays(1)->toDateTimeString()
 		];
-		return $this->notificationsRepo->getNotReadNotificationsCount($data);
+		return $this->notificationsRepo->getNotReadNotifications($data)->first();
+	}
+
+	/**
+	 * Get today user remindable leads by count
+	 * @return mixed
+	 */
+	private function getTodayNotReadLeadsNotifications()
+	{
+		$data = [
+			'to_id' => $this->auth->user()->getId(),
+			'category' => Config::get('saleboss\opilo_configs.notifications_categories.TodayLeads'),
+			'type' => [
+				'from_type' => Config::get('saleboss\opilo_configs.notifications_types.Lead'),
+				'to_type' => Config::get('saleboss\opilo_configs.notifications_types.User')
+			],
+			'limit' => null,
+			'paginate' => false,
+			'first_time' => Carbon::createFromTimestamp(strtotime('tomorrow') - (24 * 60 * 60))->setTime(0,0,0)->toDateTimeString(),
+			'second_time' => Carbon::createFromTimestamp(strtotime('tomorrow') - (24 * 60 * 60))->setTime(0,0,0)->addDays(1)->toDateTimeString()
+		];
+		return $this->notificationsRepo->getNotReadNotifications($data);
 	}
 
 	/**

@@ -143,4 +143,24 @@ class NotificationRepository extends AbstractRepository {
         return Notifynder::send($sendInformation);
     }
 
+	/**
+     * Delete Single Notification by ID
+     *
+     * @param array $data
+     */
+    public function deleteSingleNotification($data)
+    {
+        return Notifynder::delete($data);
+    }
+
+	/**
+     * Delete User Notifications by user id
+     *
+     * @param array $data
+     */
+    public function deleteUserNotifications($data)
+    {
+       return Notifynder::delete($data);
+    }
+
 }

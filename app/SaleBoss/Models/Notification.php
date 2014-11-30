@@ -28,7 +28,7 @@ class Notification extends ExNotification {
                                       ->whereBetween('created_at', [$first_time, $second_time])
                                       ->withNotRead()
                                       ->orderBy('read','ASC')
-                                      ->get()->parse();
+                                      ->get();
         }
         if ($paginate)
         {

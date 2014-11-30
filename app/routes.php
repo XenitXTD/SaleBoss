@@ -51,7 +51,7 @@ Route::group(["namespace" => "Controllers"], function(){
         Route::put("me/edit","UserController@profileUpdate");
 	    Route::get('me/leads','MyLeadsController@index');
 	    Route::post('me/leads','MyLeadsController@store');
-	    Route::get('me/leads/unreads', array('as' => 'LeadsUnreads', 'uses' =>'MyLeadsController@unReads'));
+	    Route::get('me/leads/unreads', array('as' => 'LeadsUnreads', 'uses' =>'LeadController@NotReads'));
 	    Route::delete('me/leads/{lead_id}','MyLeadsController@destroy');
         Route::put('me/leads/{lead_id}','MyLeadsController@update');
         Route::get('stats/whole','StatsController@whole');
