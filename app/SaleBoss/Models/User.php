@@ -2,11 +2,11 @@
 
 namespace SaleBoss\Models;
 
+use Cartalyst\Sentry\Facades\Laravel\Sentry;
 use Cartalyst\Sentry\Users\Eloquent\User as SentryUser;
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Input;
-use Miladr\Jalali\jDate;
 
 class User extends SentryUser {
 
@@ -171,5 +171,14 @@ class User extends SentryUser {
         }else {
             return $q->take($count)->get()->lists('last_name','id');
         }
+    }
+
+    public function scopeGetUserListByName($q, $name, $count = null)
+    {
+        $group = Sentry::findGroupByName($name);
+
+        $users = Sentry::findAllUsersInGroup($group);
+
+        return $users->lists('last_name','id');
     }
 }

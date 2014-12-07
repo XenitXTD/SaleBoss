@@ -3,12 +3,9 @@ namespace SaleBoss\Repositories\Eloquent;
 
 use Fenos\Notifynder\Notifications\Repositories\NotificationRepository as ExNotificationRepository;
 use Fenos\Notifynder\Facades\Notifynder;
-use Illuminate\Support\Facades\URL;
 use SaleBoss\Models\Notification;
-use SaleBoss\Models\User;
 use SaleBoss\Repositories\LeadRepositoryInterface;
 use SaleBoss\Repositories\UserRepositoryInterface;
-use SaleBoss\Services\Authenticator\AuthenticatorInterface;
 
 class NotificationRepository extends AbstractRepository {
 
@@ -114,12 +111,13 @@ class NotificationRepository extends AbstractRepository {
     public function setReadNotifications(array $data)
     {
         $to_id = $data['to_id'];
+        $from_id = $data['from_id'];
         $category = Notifynder::category($data['category'])->id();
         $type = $data['type'];
         $first_time = $data['first_time'] ? $data['first_time'] : null;
         $second_time = $data['second_time'] ? $data['second_time'] : null;
 
-        return Notification::setReadNotifications($to_id, $category, $type, $first_time, $second_time);
+        return Notification::setReadNotifications($to_id, $category, $type, $from_id, $first_time, $second_time);
     }
 
 	/**
@@ -137,10 +135,30 @@ class NotificationRepository extends AbstractRepository {
             'to_type'     => $data['type']['to_type'],
             'category_id' => Notifynder::category($data['category'])->id(), // category notification ID
             'url'         => $data['url'], // Url of your notification
-            'extra'       => $data['count']
+            'extra'       => $data['extra']
         ];
 
         return Notifynder::send($sendInformation);
+    }
+
+    /**
+     * Create new multiplte notification by user request
+     * Return Notifyunder method
+     *
+     * @param array $data
+     * @param array $senders
+     * @return mixed
+     */
+    public function sendMultipleNotification(array $data, array $senders)
+    {
+        $sendInformation = Notifynder::builder()->loop($senders,function($builder,$key,$senders) use($data){
+                return $builder->from($data['type']['from_type'], $senders)
+                               ->to($data['type']['to_type'], $data['to_id'])
+                               ->category($data['category'])
+                               ->url($data['url']);
+        });
+
+        return Notifynder::sendMultiple($sendInformation);
     }
 
 	/**
@@ -160,7 +178,16 @@ class NotificationRepository extends AbstractRepository {
      */
     public function deleteUserNotifications($data)
     {
-       return Notifynder::delete($data);
+       return Notifynder::deleteAll($data);
+    }
+
+	/**
+     * Delete a Notification by From Id
+     * @param $data
+     */
+    public function deleteNotificationByFrom($data)
+    {
+        return Notification::deleteByFrom($data);
     }
 
 }

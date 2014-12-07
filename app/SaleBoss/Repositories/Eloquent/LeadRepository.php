@@ -232,10 +232,10 @@ class LeadRepository extends AbstractRepository implements LeadRepositoryInterfa
         $leads =  $user->createdLeads()->whereBetween('remind_at', [$todayStart, $nextDay])
                       ->with('tags','phones')
                       ->orderBy('remind_at','ASC')
-                      ->get()->count();
+                      ->lists('id');
 
         if($leads and !Notification::checkTodayLeadsIsExist())
-            Event::fire('notifications.todayleads.unread', $leads);
+            Event::fire('notifications.todayleads.unread', array($leads));
         return $leads;
     }
 

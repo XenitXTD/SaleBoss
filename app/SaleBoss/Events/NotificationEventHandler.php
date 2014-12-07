@@ -35,9 +35,13 @@ class NotificationEventHandler {
     public function subscribe($events)
     {
         $events->listen('notifications.todayleads.read', 'SaleBoss\Events\NotificationEventHandler@onLeadsRead');
-        $events->listen('notifications.todayleads.unread', function($count)
+        $events->listen('notifications.todayleads.unread', function(array $senders)
         {
-            $this->notification->setTodayNotReadLeadsNotification($count);
+            $this->notification->setTodayNotReadLeadsNotifications($senders);
+        });
+        $events->listen('notifications.lead.delete', function($data)
+        {
+            $this->notification->updateNotificationsOnLeadDelete($data);
         });
     }
 

@@ -113,7 +113,8 @@ return array(
 			'description'           =>  '<em><b>توضیحات</b></em>',
 			'phone'                 =>  '<em><b>شماره</b></em>',
 	        'tag'                   =>  '<em><b>زمینه فعالیت</b></em>',
-	        'remind_at'             =>  '<em><b>به یاد آوری</b></em>'
+	        'remind_at'             =>  '<em><b>به یاد آوری</b></em>',
+	        'todo_at'               =>  '<em><b>زمان اجرا</b></em>'
 		),
 
 );

@@ -52,3 +52,10 @@
     </table>
 
 @stop
+
+
+@section('footer')
+    @include('admin.blocks.delete_modal')
+    @include('admin.blocks.update_modal')
+    @parent
+@stop

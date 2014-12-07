@@ -136,7 +136,8 @@ return array(
 		'Laracasts\Commander\CommanderServiceProvider',
 		'Laracasts\Validation\ValidationServiceProvider',
 		'Fenos\Notifynder\NotifynderServiceProvider',
-		'SaleBoss\Services\Notification\NotificationServiceProvider'
+		'SaleBoss\Services\Notification\NotificationServiceProvider',
+		'SaleBoss\Services\Upload\UploadServiceProvider'
 	),
 
 	/*
@@ -210,7 +211,8 @@ return array(
         'Excel'           => 'Maatwebsite\Excel\Facades\Excel',
         'ThrottleL'       => 'SaleBoss\Services\Leads\Presenter\Facades\ThrottleL',
         'Notificaion'       => 'SaleBoss\Services\Notification\Facades\Notification',
-        'Notifynder'    => 'Fenos\Notifynder\Facades\Notifynder'
+        'Notifynder'    => 'Fenos\Notifynder\Facades\Notifynder',
+        'Upload'       => 'SaleBoss\Services\Upload\Facades\Upload',
 	),
 
 );

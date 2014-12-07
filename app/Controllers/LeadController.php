@@ -1,5 +1,6 @@
 <?php namespace Controllers;
 
+use Illuminate\Support\Facades\Event;
 use Miladr\Jalali;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Input;
@@ -261,13 +262,11 @@ class LeadController extends BaseController
 
     public function notReads()
     {
-        if (!$this->auth->user()->hasAnyAccess(['leads.user']))
-        {
-            return $this->redirectTo('dash')->with('error_message','شما اجازه مشاهده لیدهای کاربران دیگر را ندارید.');
-        }
         $user = $this->userRepo->findById($this->auth->user()->getId());
 
         $leads = $this->leadRepo->getRemindableLeads($user, 1);
+
+        Event::fire('notifications.todayleads.read');
 
         return $this->view('admin.pages.lead.my_notread_list', compact('user', 'leads'));
     }

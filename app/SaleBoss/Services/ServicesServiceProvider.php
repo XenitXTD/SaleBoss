@@ -23,6 +23,5 @@ class ServicesServiceProvider extends ServiceProvider {
             NotificationRepositoryInterface::class,
             NotificationRepository::class
         );
-
     }
 }

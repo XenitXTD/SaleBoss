@@ -56,6 +56,14 @@ Route::group(["namespace" => "Controllers"], function(){
         Route::put('me/leads/{lead_id}','MyLeadsController@update');
         Route::get('stats/whole','StatsController@whole');
         Route::get('stats/user/{user_id}','StatsController@users');
+        Route::get('task', array('as' => 'TaskIndex', 'uses' =>'TaskController@index'));
+        Route::get('task/create','TaskController@create');
+        Route::put('task/create','TaskController@store');
+        Route::get('task/{task_id}','TaskController@show');
+        Route::put('task/{task_id}','TaskController@messageUpdate');
+        Route::put('task/action/{task_id}','TaskController@action');
+        Route::get('task/edit/{task_id}','TaskController@edit');
+        Route::put('task/edit/{task_id}','TaskController@edit');
     });
 });
 

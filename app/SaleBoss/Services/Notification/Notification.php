@@ -3,7 +3,6 @@ namespace SaleBoss\Services\Notification;
 
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\URL;
 use SaleBoss\Repositories\Eloquent\NotificationRepository;
@@ -46,10 +45,11 @@ class Notification implements NotificationInterface {
     {
 	    $view->with('notifications', null);
 	    $view->with(
-		    array(
+		    [
 			    'TodayLeadsNotificationsCount' => $this->getTodayNotReadLeadsNotificationsCount(),
-			    'TodayLeadsNotificationsList' => $this->getTodayNotReadLeadsNotifications(),
-		    )
+		        'tasks'                        => $this->getMyNotReadTasksNotifications(),
+		        'tasksMessages'                => $this->getMyNotReadTasksMessagesNotifications()
+		    ]
 	    );
     }
 
@@ -58,23 +58,21 @@ class Notification implements NotificationInterface {
 	 * @param Number of today reminding leads $count
 	 * @return mixed
 	 */
-	public function setTodayNotReadLeadsNotification($count)
+	public function setTodayNotReadLeadsNotifications($senders)
 	{
 		$data = [
-			'from_id' => 0,
 			'to_id' => $this->auth->user()->getId(),
 		    'category' => Config::get('saleboss\opilo_configs.notifications_categories.TodayLeads'),
 		    'type' => [
 			    'from_type' => Config::get('saleboss\opilo_configs.notifications_types.Lead'),
 			    'to_type' => Config::get('saleboss\opilo_configs.notifications_types.User')
 		    ],
-		    'url' => URL::route('LeadsUnreads'),
-		    'count' => $count
+		    'url' => URL::route('LeadsUnreads')
 		];
 
 		Session::put('TodayLeadsNotifications', true); // Set Session for flash notification message just for once
 
-		return $this->notificationsRepo->sendNotification($data);
+		return $this->notificationsRepo->sendMultipleNotification($data, $senders);
 	}
 
 	/**
@@ -95,28 +93,7 @@ class Notification implements NotificationInterface {
 		    'first_time' => Carbon::createFromTimestamp(strtotime('tomorrow') - (24 * 60 * 60))->setTime(0,0,0)->toDateTimeString(),
 		    'second_time' => Carbon::createFromTimestamp(strtotime('tomorrow') - (24 * 60 * 60))->setTime(0,0,0)->addDays(1)->toDateTimeString()
 		];
-		return $this->notificationsRepo->getNotReadNotifications($data)->first();
-	}
-
-	/**
-	 * Get today user remindable leads by count
-	 * @return mixed
-	 */
-	private function getTodayNotReadLeadsNotifications()
-	{
-		$data = [
-			'to_id' => $this->auth->user()->getId(),
-			'category' => Config::get('saleboss\opilo_configs.notifications_categories.TodayLeads'),
-			'type' => [
-				'from_type' => Config::get('saleboss\opilo_configs.notifications_types.Lead'),
-				'to_type' => Config::get('saleboss\opilo_configs.notifications_types.User')
-			],
-			'limit' => null,
-			'paginate' => false,
-			'first_time' => Carbon::createFromTimestamp(strtotime('tomorrow') - (24 * 60 * 60))->setTime(0,0,0)->toDateTimeString(),
-			'second_time' => Carbon::createFromTimestamp(strtotime('tomorrow') - (24 * 60 * 60))->setTime(0,0,0)->addDays(1)->toDateTimeString()
-		];
-		return $this->notificationsRepo->getNotReadNotifications($data);
+		return $this->notificationsRepo->getNotReadNotificationsCount($data);
 	}
 
 	/**
@@ -158,6 +135,109 @@ class Notification implements NotificationInterface {
 			],
 			'first_time' => Carbon::createFromTimestamp(strtotime('tomorrow') - (24 * 60 * 60))->setTime(0,0,0)->toDateTimeString(),
 			'second_time' => Carbon::createFromTimestamp(strtotime('tomorrow') - (24 * 60 * 60))->setTime(0,0,0)->addDays(1)->toDateTimeString()
+		];
+
+		return $this->notificationsRepo->setReadNotifications($data);
+	}
+
+	/**
+	 * Update Notifications when a lead is deleted
+	 *
+	 * @param $data
+	 */
+	public function updateNotificationsOnLeadDelete($data)
+	{
+		$this->notificationsRepo->deleteNotificationByFrom($data);
+
+	}
+
+	/**
+	 * Call Notification Service from another services
+	 *
+	 * @param $data
+	 */
+	public function sendNotification($data)
+	{
+		$sendInformation = [
+			'from_id'     => $data['from_id'], // ID user that send the notification
+			'type' => [
+				'from_type' => $data['type']['from_type'],
+				'to_type' => $data['type']['to_type']
+			],
+			'to_id'       => $data['to_id'], // ID user that receive the notification
+			'category'    => $data['category'], // category notification ID
+			'url'         => $data['url'], // Url of your notification
+			'extra'       => $data['extra']
+		];
+
+		return $this->notificationsRepo->sendNotification($sendInformation);
+	}
+
+	private function getMyNotReadTasksNotifications()
+	{
+		$data = [
+			'to_id' => $this->auth->user()->getId(),
+			'category' => Config::get('saleboss\opilo_configs.notifications_categories.Tasks'),
+			'type' => [
+				'from_type' => Config::get('saleboss\opilo_configs.notifications_types.Task'),
+				'to_type' => Config::get('saleboss\opilo_configs.notifications_types.User')
+			],
+			'limit' => null,
+			'paginate' => false,
+			'first_time' => null,
+			'second_time' => null
+		];
+
+		return $this->notificationsRepo->getNotReadNotifications($data);
+	}
+
+	private function getMyNotReadTasksMessagesNotifications()
+	{
+		$data = [
+			'to_id' => $this->auth->user()->getId(),
+			'category' => Config::get('saleboss\opilo_configs.notifications_categories.TaskMessages'),
+			'type' => [
+				'from_type' => Config::get('saleboss\opilo_configs.notifications_types.TaskMessages'),
+				'to_type' => Config::get('saleboss\opilo_configs.notifications_types.User')
+			],
+			'limit' => null,
+			'paginate' => false,
+			'first_time' => null,
+			'second_time' => null
+		];
+
+		return $this->notificationsRepo->getNotReadNotifications($data);
+	}
+
+	public function setReadTasksNotifications($id)
+	{
+		$data = [
+			'from_id' => $id,
+			'to_id' => $this->auth->user()->getId(),
+			'category' => Config::get('saleboss\opilo_configs.notifications_categories.Tasks'),
+			'type' => [
+				'from_type' => Config::get('saleboss\opilo_configs.notifications_types.Task'),
+				'to_type' => Config::get('saleboss\opilo_configs.notifications_types.User')
+			],
+			'first_time' => null,
+			'second_time' => null
+		];
+
+		return $this->notificationsRepo->setReadNotifications($data);
+	}
+
+	public function setReadTasksMessagesNotifications($id)
+	{
+		$data = [
+			'from_id' => $id,
+			'to_id' => $this->auth->user()->getId(),
+			'category' => Config::get('saleboss\opilo_configs.notifications_categories.TaskMessages'),
+			'type' => [
+				'from_type' => Config::get('saleboss\opilo_configs.notifications_types.TaskMessages'),
+				'to_type' => Config::get('saleboss\opilo_configs.notifications_types.User')
+			],
+			'first_time' => null,
+			'second_time' => null
 		];
 
 		return $this->notificationsRepo->setReadNotifications($data);

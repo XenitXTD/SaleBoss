@@ -1,6 +1,7 @@
 <?php  namespace Controllers;
 
 use App;
+use Illuminate\Support\Facades\Event;
 use Input;
 use Laracasts\Validation\FormValidationException;
 use Response;
@@ -52,6 +53,7 @@ class MyLeadsController extends BaseController
 		try {
 			$input = ['lead_id' => $id, 'user' => $this->auth->user()];
 			$this->execute(LeadDeleteCommand::class, $input);
+			Event::fire('notifications.lead.delete', $id);
 			return $this->redirectBack()->with('success_message',trans('messages.operation_success'));
 		} catch (NotFoundException $e){
 			App::abort(404);
@@ -64,17 +66,17 @@ class MyLeadsController extends BaseController
 
 	public function update($id)
 	{
-        Input::merge(['id' => $id, 'user' => $this->auth->user()]);
+		Input::merge(['id' => $id, 'user' => $this->auth->user()]);
 		try {
 			$this->execute(UpdateLeadCommand::class);
 			return $this->redirectBack()->with('success_message',trans('messages.operation_success'));
 		}catch (NotFoundException $e){
 			App::abort(404);
 		}catch (RepositoryException $e){
-            print $e->getMessage();exit();
+			print $e->getMessage();exit();
 			return $this->redirectBack()->with('error_message',trans('messages.database_error'));
 		}catch (FormValidationException $e){
-            return $this->redirectBack()->withErrors($e->getErrors());
+			return $this->redirectBack()->withErrors($e->getErrors());
         }
 	}
 } 

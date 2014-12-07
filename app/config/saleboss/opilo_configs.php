@@ -51,11 +51,15 @@ return array(
     'notifications_categories'  =>  array(
         'Leads' => 'Leads',
         'Users' =>  'Users',
-        'TodayLeads' => 'TodayLeads'
+        'TodayLeads' => 'TodayLeads',
+        'Tasks'     =>  'Tasks',
+        'TaskMessages'     =>  'TaskMessages'
     ),
     'notifications_types'  =>  array(
         'Lead' => 'SaleBoss\Models\Lead',
-        'User' =>  'SaleBoss\Models\User'
+        'User' =>  'SaleBoss\Models\User',
+        'Task' =>  'SaleBoss\Models\Task',
+        'TaskMessages' => 'SaleBoss\Models\TaskMessages'
     ),
 
 );
