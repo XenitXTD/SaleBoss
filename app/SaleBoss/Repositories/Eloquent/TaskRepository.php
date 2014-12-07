@@ -106,18 +106,18 @@ class TaskRepository extends AbstractRepository implements TaskRepositoryInterfa
             Upload::doUpload($data['file'],
                              [
                                  'for_id'   => $model->id,
-                                 'for_type' => Config::get('saleboss\opilo_configs.notifications_types.Task'),
-                                 'path'     =>  'public/files/tasks'
+                                 'for_type' => Config::get('opilo_configs.notifications_types.Task'),
+                                 'path'     =>  'files/tasks'
                              ]);
 
             $sendInformation = [
                 'from_id'     => $model->id, // ID user that send the notification
                 'to_id'       => $data['for_id'], // ID user that receive the notification
                 'type' => [
-                    'from_type' => Config::get('saleboss\opilo_configs.notifications_types.Task'),
-                    'to_type' => Config::get('saleboss\opilo_configs.notifications_types.User')
+                    'from_type' => Config::get('opilo_configs.notifications_types.Task'),
+                    'to_type' => Config::get('opilo_configs.notifications_types.User')
                 ],
-                'category' => Config::get('saleboss\opilo_configs.notifications_categories.Tasks'), // category notification ID
+                'category' => Config::get('opilo_configs.notifications_categories.Tasks'), // category notification ID
                 'url'         => URL::to('task/'.$model->id), // Url of your notification
                 'extra'       => Lang::get("tasks.notifications_create")
             ];
@@ -156,10 +156,10 @@ class TaskRepository extends AbstractRepository implements TaskRepositoryInterfa
                 'from_id'     => $taskId, // ID user that send the notification
                 'to_id'       => $data['for_id'], // ID user that receive the notification
                 'type' => [
-                    'from_type' => Config::get('saleboss\opilo_configs.notifications_types.Task'),
-                    'to_type' => Config::get('saleboss\opilo_configs.notifications_types.User')
+                    'from_type' => Config::get('opilo_configs.notifications_types.Task'),
+                    'to_type' => Config::get('opilo_configs.notifications_types.User')
                 ],
-                'category' => Config::get('saleboss\opilo_configs.notifications_categories.Tasks'), // category notification ID
+                'category' => Config::get('opilo_configs.notifications_categories.Tasks'), // category notification ID
                 'url'         => URL::to('task/'.$taskId), // Url of your notification
                 'extra'       => Lang::get("tasks.notifications_edit")
             ];
@@ -198,10 +198,10 @@ class TaskRepository extends AbstractRepository implements TaskRepositoryInterfa
                 'from_id'     => $taskId, // ID user that send the notification
                 'to_id'       => $task->for_id, // ID user that receive the notification
                 'type' => [
-                    'from_type' => Config::get('saleboss\opilo_configs.notifications_types.Task'),
-                    'to_type' => Config::get('saleboss\opilo_configs.notifications_types.User')
+                    'from_type' => Config::get('opilo_configs.notifications_types.Task'),
+                    'to_type' => Config::get('opilo_configs.notifications_types.User')
                 ],
-                'category' => Config::get('saleboss\opilo_configs.notifications_categories.Tasks'), // category notification ID
+                'category' => Config::get('opilo_configs.notifications_categories.Tasks'), // category notification ID
                 'url'         => URL::to('task/'.$taskId), // Url of your notification
                 'extra'       => Lang::get("tasks.notifications_setAsToBeDone")
             ];
@@ -234,10 +234,10 @@ class TaskRepository extends AbstractRepository implements TaskRepositoryInterfa
                 'from_id'     => $taskId, // ID user that send the notification
                 'to_id'       => $for_id, // ID user that receive the notification
                 'type' => [
-                    'from_type' => Config::get('saleboss\opilo_configs.notifications_types.Task'),
-                    'to_type' => Config::get('saleboss\opilo_configs.notifications_types.User')
+                    'from_type' => Config::get('opilo_configs.notifications_types.Task'),
+                    'to_type' => Config::get('opilo_configs.notifications_types.User')
                 ],
-                'category' => Config::get('saleboss\opilo_configs.notifications_categories.Tasks'), // category notification ID
+                'category' => Config::get('opilo_configs.notifications_categories.Tasks'), // category notification ID
                 'url'         => URL::to('task/'.$taskId), // Url of your notification
                 'extra'       => Lang::get("tasks.notifications_setAsDone")
             ];
@@ -270,10 +270,10 @@ class TaskRepository extends AbstractRepository implements TaskRepositoryInterfa
                 'from_id'     => $taskId, // ID user that send the notification
                 'to_id'       => $task->for_id, // ID user that receive the notification
                 'type' => [
-                    'from_type' => Config::get('saleboss\opilo_configs.notifications_types.Task'),
-                    'to_type' => Config::get('saleboss\opilo_configs.notifications_types.User')
+                    'from_type' => Config::get('opilo_configs.notifications_types.Task'),
+                    'to_type' => Config::get('opilo_configs.notifications_types.User')
                 ],
-                'category' => Config::get('saleboss\opilo_configs.notifications_categories.Tasks'), // category notification ID
+                'category' => Config::get('opilo_configs.notifications_categories.Tasks'), // category notification ID
                 'url'         => URL::to('task/'.$taskId), // Url of your notification
                 'extra'       => Lang::get("tasks.notifications_setAsClose")
             ];
