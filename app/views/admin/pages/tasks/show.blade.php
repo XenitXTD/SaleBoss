@@ -87,7 +87,7 @@
                 فایل پیوست:
             </div>
             <div class="col-md-10 justifyright">
-                @if($task->file->first()->name)<a href="{{asset($task->file->first()->path .'/'. $task->file->first()->name)}}">{{$task->file->first()->name}}</a>@endif
+                @if(!empty($task->file->first()->name))<a href="{{asset($task->file->first()->path .'/'. $task->file->first()->name)}}">{{$task->file->first()->name}}</a>@endif
             </div>
         </div>
 		<div class="row padding10">

@@ -151,7 +151,7 @@ class TaskController extends BaseController {
                     'category'  => $info['category'],
                     'description'   => $info['description'],
                     'todo_at'   =>  $todo,
-                    'file'      =>  Input::file('file')
+                    'file'      =>  is_null(Input::file('file')) ? null : Input::file('file')
                 ]
             ];
 

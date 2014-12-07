@@ -103,12 +103,15 @@ class TaskRepository extends AbstractRepository implements TaskRepositoryInterfa
 
         if($model->save()) {
 
-            Upload::doUpload($data['file'],
-                             [
-                                 'for_id'   => $model->id,
-                                 'for_type' => Config::get('opilo_configs.notifications_types.Task'),
-                                 'path'     =>  'files/tasks'
-                             ]);
+            if(!is_null($data['file']))
+            {
+                Upload::doUpload($data['file'],
+                                 [
+                                     'for_id'   => $model->id,
+                                     'for_type' => Config::get('opilo_configs.notifications_types.Task'),
+                                     'path'     =>  'files/tasks'
+                                 ]);
+            }
 
             $sendInformation = [
                 'from_id'     => $model->id, // ID user that send the notification
