@@ -17,7 +17,7 @@ class CreateUploadTable extends Migration {
 				$table->string('name');
 				$table->string('path');
 				$table->integer('for_id')->unsigned()->nullable();
-				$table->string('for_type')->unsigned()->nullable();
+				$table->string('for_type')->nullable();
 				$table->timestamps();
 			});
 	}
