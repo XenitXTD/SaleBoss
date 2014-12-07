@@ -62,10 +62,10 @@ class Notification implements NotificationInterface {
 	{
 		$data = [
 			'to_id' => $this->auth->user()->getId(),
-		    'category' => Config::get('saleboss\opilo_configs.notifications_categories.TodayLeads'),
+		    'category' => Config::get('opilo_configs.notifications_categories.TodayLeads'),
 		    'type' => [
-			    'from_type' => Config::get('saleboss\opilo_configs.notifications_types.Lead'),
-			    'to_type' => Config::get('saleboss\opilo_configs.notifications_types.User')
+			    'from_type' => Config::get('opilo_configs.notifications_types.Lead'),
+			    'to_type' => Config::get('opilo_configs.notifications_types.User')
 		    ],
 		    'url' => URL::route('LeadsUnreads')
 		];
@@ -83,10 +83,10 @@ class Notification implements NotificationInterface {
 	{
 		$data = [
 			'to_id' => $this->auth->user()->getId(),
-			'category' => Config::get('saleboss\opilo_configs.notifications_categories.TodayLeads'),
+			'category' => Config::get('opilo_configs.notifications_categories.TodayLeads'),
 			'type' => [
-				'from_type' => Config::get('saleboss\opilo_configs.notifications_types.Lead'),
-				'to_type' => Config::get('saleboss\opilo_configs.notifications_types.User')
+				'from_type' => Config::get('opilo_configs.notifications_types.Lead'),
+				'to_type' => Config::get('opilo_configs.notifications_types.User')
 			],
 		    'limit' => null,
 		    'paginate' => false,
@@ -105,10 +105,10 @@ class Notification implements NotificationInterface {
 	{
 		$data = [
 			'to_id' => $this->auth->user()->getId(),
-			'category' => Config::get('saleboss\opilo_configs.notifications_categories.TodayLeads'),
+			'category' => Config::get('opilo_configs.notifications_categories.TodayLeads'),
 			'type' => [
-				'from_type' => Config::get('saleboss\opilo_configs.notifications_types.Lead'),
-				'to_type' => Config::get('saleboss\opilo_configs.notifications_types.User')
+				'from_type' => Config::get('opilo_configs.notifications_types.Lead'),
+				'to_type' => Config::get('opilo_configs.notifications_types.User')
 			],
 			'limit' => null,
 			'paginate' => false,
@@ -128,10 +128,10 @@ class Notification implements NotificationInterface {
 	{
 		$data = [
 			'to_id' => $this->auth->user()->getId(),
-			'category' => Config::get('saleboss\opilo_configs.notifications_categories.TodayLeads'),
+			'category' => Config::get('opilo_configs.notifications_categories.TodayLeads'),
 			'type' => [
-				'from_type' => Config::get('saleboss\opilo_configs.notifications_types.Lead'),
-				'to_type' => Config::get('saleboss\opilo_configs.notifications_types.User')
+				'from_type' => Config::get('opilo_configs.notifications_types.Lead'),
+				'to_type' => Config::get('opilo_configs.notifications_types.User')
 			],
 			'first_time' => Carbon::createFromTimestamp(strtotime('tomorrow') - (24 * 60 * 60))->setTime(0,0,0)->toDateTimeString(),
 			'second_time' => Carbon::createFromTimestamp(strtotime('tomorrow') - (24 * 60 * 60))->setTime(0,0,0)->addDays(1)->toDateTimeString()
@@ -177,10 +177,10 @@ class Notification implements NotificationInterface {
 	{
 		$data = [
 			'to_id' => $this->auth->user()->getId(),
-			'category' => Config::get('saleboss\opilo_configs.notifications_categories.Tasks'),
+			'category' => Config::get('opilo_configs.notifications_categories.Tasks'),
 			'type' => [
-				'from_type' => Config::get('saleboss\opilo_configs.notifications_types.Task'),
-				'to_type' => Config::get('saleboss\opilo_configs.notifications_types.User')
+				'from_type' => Config::get('opilo_configs.notifications_types.Task'),
+				'to_type' => Config::get('opilo_configs.notifications_types.User')
 			],
 			'limit' => null,
 			'paginate' => false,
@@ -195,10 +195,10 @@ class Notification implements NotificationInterface {
 	{
 		$data = [
 			'to_id' => $this->auth->user()->getId(),
-			'category' => Config::get('saleboss\opilo_configs.notifications_categories.TaskMessages'),
+			'category' => Config::get('opilo_configs.notifications_categories.TaskMessages'),
 			'type' => [
-				'from_type' => Config::get('saleboss\opilo_configs.notifications_types.TaskMessages'),
-				'to_type' => Config::get('saleboss\opilo_configs.notifications_types.User')
+				'from_type' => Config::get('opilo_configs.notifications_types.TaskMessages'),
+				'to_type' => Config::get('opilo_configs.notifications_types.User')
 			],
 			'limit' => null,
 			'paginate' => false,
@@ -214,10 +214,10 @@ class Notification implements NotificationInterface {
 		$data = [
 			'from_id' => $id,
 			'to_id' => $this->auth->user()->getId(),
-			'category' => Config::get('saleboss\opilo_configs.notifications_categories.Tasks'),
+			'category' => Config::get('opilo_configs.notifications_categories.Tasks'),
 			'type' => [
-				'from_type' => Config::get('saleboss\opilo_configs.notifications_types.Task'),
-				'to_type' => Config::get('saleboss\opilo_configs.notifications_types.User')
+				'from_type' => Config::get('opilo_configs.notifications_types.Task'),
+				'to_type' => Config::get('opilo_configs.notifications_types.User')
 			],
 			'first_time' => null,
 			'second_time' => null
@@ -231,10 +231,10 @@ class Notification implements NotificationInterface {
 		$data = [
 			'from_id' => $id,
 			'to_id' => $this->auth->user()->getId(),
-			'category' => Config::get('saleboss\opilo_configs.notifications_categories.TaskMessages'),
+			'category' => Config::get('opilo_configs.notifications_categories.TaskMessages'),
 			'type' => [
-				'from_type' => Config::get('saleboss\opilo_configs.notifications_types.TaskMessages'),
-				'to_type' => Config::get('saleboss\opilo_configs.notifications_types.User')
+				'from_type' => Config::get('opilo_configs.notifications_types.TaskMessages'),
+				'to_type' => Config::get('opilo_configs.notifications_types.User')
 			],
 			'first_time' => null,
 			'second_time' => null
