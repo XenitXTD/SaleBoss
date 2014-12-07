@@ -61,7 +61,7 @@ class TaskRepository extends AbstractRepository implements TaskRepositoryInterfa
     }
 
 	/**
-     * Show task details
+     * Show task details for user
      *
      * @param User $user
      * @param      $taskId
