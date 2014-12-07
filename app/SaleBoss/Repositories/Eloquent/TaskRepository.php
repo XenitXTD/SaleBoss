@@ -102,7 +102,6 @@ class TaskRepository extends AbstractRepository implements TaskRepositoryInterfa
         $model->todo_at = $data['todo_at'];
 
         if($model->save()) {
-            dd($data['file']);
             if(!is_null($data['file']))
             {
                 Upload::doUpload($data['file'],
