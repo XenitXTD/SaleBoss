@@ -84,7 +84,7 @@ class TaskController extends BaseController {
 
     public function edit($id)
     {
-        if(Input::all())
+        if(Input::get('todo_at'))
         {
             $todo = Input::get('todo_at');
             $todoEx = explode('-', $todo);
