@@ -111,7 +111,7 @@ class NotificationRepository extends AbstractRepository {
     public function setReadNotifications(array $data)
     {
         $to_id = $data['to_id'];
-        $from_id = $data['from_id'];
+        $from_id = $data['from_id'] ?: null;
         $category = Notifynder::category($data['category'])->id();
         $type = $data['type'];
         $first_time = $data['first_time'] ? $data['first_time'] : null;
