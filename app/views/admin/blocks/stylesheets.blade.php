@@ -31,7 +31,7 @@
         @elseif(Sentry::getUser()->getGroups()->first()->name == 'sales')
         <style> .panelColor { background-color: #438EB9 !important; } </style>
         @elseif(Sentry::getUser()->getGroups()->first()->name == 'accounter')
-        <style> .panelColor { background-color: #C6487E !important; } </style>
+        <style> .panelColor { background-color: #2E8965 !important; } </style>
         @elseif(Sentry::getUser()->getGroups()->first()->name == 'support')
         <style> .panelColor { background-color: #2C6AA0 !important; } </style>
         @endif
