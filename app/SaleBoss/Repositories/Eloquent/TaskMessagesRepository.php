@@ -39,10 +39,10 @@ class TaskMessagesRepository extends AbstractRepository implements TaskMessagesR
                     'from_id'     => $model->id, // ID user that send the notification
                     'to_id'       => $for_id, // ID user that receive the notification
                     'type' => [
-                        'from_type' => Config::get('saleboss\opilo_configs.notifications_types.TaskMessages'),
-                        'to_type' => Config::get('saleboss\opilo_configs.notifications_types.User')
+                        'from_type' => Config::get('opilo_configs.notifications_types.TaskMessages'),
+                        'to_type' => Config::get('opilo_configs.notifications_types.User')
                     ],
-                    'category' => Config::get('saleboss\opilo_configs.notifications_categories.TaskMessages'), // category notification ID
+                    'category' => Config::get('opilo_configs.notifications_categories.TaskMessages'), // category notification ID
                     'url'         => URL::to('task/'.$taskId), // Url of your notification
                     'extra'       => Lang::get("tasks.notifications_messageUpdate")
                 ];
