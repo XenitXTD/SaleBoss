@@ -130,12 +130,13 @@ class TaskRepository extends AbstractRepository implements TaskRepositoryInterfa
                 return false;
     }
 
-	/**
+    /**
      * Edit Task By Creator
      *
      * @param User  $user
      * @param       $taskId
      * @param array $data
+     * @return bool
      */
     public function editTask(User $user, $taskId, array $data)
     {
