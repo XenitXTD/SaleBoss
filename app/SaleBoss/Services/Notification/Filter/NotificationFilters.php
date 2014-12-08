@@ -1,6 +1,5 @@
 <?php namespace SaleBoss\Services\Notification\Filter;
 
-use Illuminate\Support\Facades\Session;
 use SaleBoss\Repositories\LeadRepositoryInterface;
 use SaleBoss\Services\Authenticator\AuthenticatorInterface;
 
