@@ -20,7 +20,7 @@
 				دریافت کننده:
 			</div>
 			<div class="col-md-10">
-				{{Form::select('item[for_id]',SaleBoss\Models\User::getUserList('sales'),['class' => 'form-control'])}}
+				{{Form::select('item[for_id]',SaleBoss\Models\User::getUserList(),['class' => 'form-control'])}}
 			</div>
 		</div>
 		<div class="row padding10">

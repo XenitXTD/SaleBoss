@@ -6,6 +6,7 @@ use Cartalyst\Sentry\Facades\Laravel\Sentry;
 use Cartalyst\Sentry\Users\Eloquent\User as SentryUser;
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 
 class User extends SentryUser {
@@ -13,6 +14,8 @@ class User extends SentryUser {
 	use DateTrait;
 	use ChartTrait;
     use SoftDeletingTrait;
+
+    protected  $table = 'users';
 
     /**
      * Get user idetifier
@@ -165,11 +168,11 @@ class User extends SentryUser {
 
     public function scopeGetUserList($q, $count = null)
     {
-        $q = $q->where('is_customer', false)->orderBy('id','ASC');
+        $q = DB::table($this->table)->where('is_customer', false)->orderBy('id','ASC')->select(DB::raw('concat (first_name," ",last_name) as full_name,id'));
         if (is_null($count)) {
-            return $q->get()->lists('last_name','id');
+                return $q->lists('full_name', 'id');
         }else {
-            return $q->take($count)->get()->lists('last_name','id');
+            return $q->take($count)->lists('first_name, last_name','id');
         }
     }
 
