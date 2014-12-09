@@ -30,8 +30,8 @@
                               				<td>{{Form::text('phone',null,['placeholder' => 'شماره تماس','class' => 'form-control languageLeft bulkable resettable', 'style' => 'width: 100%'])}}</td>
                               				<td>{{Form::select('tag',SaleBoss\Models\Tag::getTagList(),182,['class' => 'form-control stable', 'style' => 'width: 100%'])}}</td>
                               				<td>{{Form::text('description',null,['placeholder' => 'توضیحات','class' => 'form-control bulkable resettable', 'style' => 'width: 100%'])}}</td>
-                              				<td class="priorities">{{Form::select( 'priority',['1'=>'1','2'=>'2','3'=>'3','4'=>'4','5'=>'5'], 1,['class' => 'form-control languageLeft bulkable resettable', 'style' => 'width: 100%'])}}</td>
-                              				<td class="statuses"> {{Form::select('status',$opiloConfig['lead_status'],0,['class' => 'form-control stable', 'style' => 'width: 100%'])}}</td>
+                              				<td>{{Form::select( 'priority',['1'=>'1','2'=>'2','3'=>'3','4'=>'4','5'=>'5'], 1,['class' => 'form-control languageLeft bulkable resettable', 'style' => 'width: 100%'])}}</td>
+                              				<td> {{Form::select('status',$opiloConfig['lead_status'],0,['class' => 'form-control stable', 'style' => 'width: 100%'])}}</td>
                               				<td>{{Form::text('remind_at',null,['class' => 'form-control resettable', 'placeholder' => 'به یادآوری در چندروز بعد؟', 'style' => 'width: 100%'])}}</td>
                               				<td>
                               					<button type="submit" data-loading-text='<i class="fa fa-spinner"></i>' class="btn radius btn-xs operation-margin btn-success submit_button"><i class="fa fa-plus"></i></button>
@@ -39,12 +39,21 @@
                               				</td>
                               				{{Form::close()}}
                               			</tr>
+                              			<tr style="display: none">
+                              			    <td>{{Form::text('name',null,['placeholder' => 'نام شخص یا شرکت','class' => 'form-control bulkable resettable', 'style' => 'width: 100%'])}}</td>
+                                            <td>{{Form::text('phone',null,['placeholder' => 'شماره تماس','class' => 'form-control languageLeft bulkable resettable', 'style' => 'width: 100%'])}}</td>
+                                            <td class="tags">{{Form::select('tag',SaleBoss\Models\Tag::getTagList(),['class' => 'form-control stable', 'style' => 'width: 100% !important'])}}</td>
+                                            <td>{{Form::text('description',null,['placeholder' => 'توضیحات','class' => 'form-control bulkable resettable', 'style' => 'width: 100%'])}}</td>
+                                            <td class="priorities">{{Form::select( 'priority',['1'=>'1','2'=>'2','3'=>'3','4'=>'4','5'=>'5'], 1,['class' => 'form-control languageLeft bulkable resettable', 'style' => 'width: 100%'])}}</td>
+                                            <td class="statuses"> {{Form::select('status',$opiloConfig['lead_status'],0,['class' => 'form-control stable', 'style' => 'width: 100%'])}}</td>
+                                            <td>{{Form::text('remind_at',null,['class' => 'form-control resettable', 'placeholder' => 'به یادآوری در چندروز بعد؟', 'style' => 'width: 100%'])}}</td>
+                              			</tr>
                                           @foreach($list as $lead)
                                               <tr @if ($lead->new_lead === 1) style="background-color: #F4726D;" @endif>
                                                   <td>#{{$lead->id}}</td>
                                                   <td>{{$lead->name}}</td>
                                                   <td class="text-center" style="direction: ltr">{{$lead->phones->first()->number}}</td>
-                                                  <td class="text-center" style="direction: ltr">{{$lead->tags->first()->name}}</td>
+                                                  <td class="text-center" style="direction: ltr">{{$lead->tags->last()->name}}</td>
                                                   <td>{{empty($lead->description) ? 'ندارد' : softTrim($lead->description,50)}}</td>
                                                   <td class="text-center">
                                                       @for($i=1;$i<=$lead->priority;$i++)

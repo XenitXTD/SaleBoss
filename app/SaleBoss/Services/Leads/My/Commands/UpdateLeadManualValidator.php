@@ -5,7 +5,7 @@ use Laracasts\Validation\FormValidator;
 class UpdateLeadManualValidator extends FormValidator
 {
     protected $rules = [
-        'phone'        =>  'required|digits_between:3,20|unique:phones,number',
+        'phone'        =>  'required|regex:/^[0-9]+$/|digits_between:4,11|unique:phones,number',
         'remind_at'    =>   'numeric'
     ];
 

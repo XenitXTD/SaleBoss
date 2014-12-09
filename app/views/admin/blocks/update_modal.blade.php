@@ -38,7 +38,7 @@
 		<div class="row">
     		<div class="col-lg-6 col-md-6 col-sm-12">
     			<label class="control-label Nassim Nassim700 NassimTitle">زمینه فعالیت</label>
-    			<%= tags %>
+    			<div style="width: 100%"><%= tags %></div>
     		</div>
     		<div class="col-lg-6 col-md-6 col-sm-12">
     			<label class="control-label Nassim Nassim700 NassimTitle">توضیحات</label>

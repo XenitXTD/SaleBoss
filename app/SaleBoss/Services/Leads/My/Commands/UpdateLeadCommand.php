@@ -13,7 +13,7 @@ class UpdateLeadCommand {
 		$description,
 		$phone,
 		$priority,
-		$tag = null,
+		$tag,
 		$remind_at,
         $status,
         $id,

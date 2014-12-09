@@ -12,7 +12,7 @@
 		class="btn btn-xs pull-left btn-warning operation-margin"
 		id="{{$lead->name}}"
 		name="{{$lead->name}}"
-		tag="{{$lead->tags->first()->id}}"
+		tag="{{$lead->tags->last()->id}}"
 		phone="{{$lead->phones->first()->number}}"
 		status="{{$lead->status}}"
 		remind_at="{{$lead->remind_at}}"
