@@ -114,7 +114,11 @@ return array(
 			'phone'                 =>  '<em><b>شماره</b></em>',
 	        'tag'                   =>  '<em><b>زمینه فعالیت</b></em>',
 	        'remind_at'             =>  '<em><b>به یاد آوری</b></em>',
-	        'todo_at'               =>  '<em><b>زمان اجرا</b></em>'
+	        'todo_at'               =>  '<em><b>زمان اجرا</b></em>',
+	        'subject'               =>  '<em><b>موضوع</b></em>',
+	        'message'               =>  '<em><b>متن</b></em>',
+	        'destination'                  =>  '<em><b>دریافت کننده</b></em>',
+	        'folder'                  =>  '<em><b>پوشه بایگانی</b></em>',
 		),
 
 );

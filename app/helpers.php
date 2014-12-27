@@ -59,3 +59,25 @@ function arrayToObject($array) {
         return FALSE;
     }
 }
+
+function has_next($array, $value) {
+    if (is_array($array)) {
+        if (array_search($value, $array) == count($array) - 1) {
+            return false;
+        } else {
+            return true;
+        }
+    } else {
+        return false;
+    }
+}
+
+function has_prev($array, $value) {
+    if (is_array($array)) {
+        if (array_search($value, $array) == 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+}

@@ -62,8 +62,8 @@ a:hover {
     right: 0px;
 }
 
-.dropdown-menu {
-    min-width: 100%;
+.dropdown-menu, .dd {
+    min-width: 100% !important;
 }
 
 .user-menu>li>a>.ace-icon {

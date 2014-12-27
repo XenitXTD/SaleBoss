@@ -12,6 +12,7 @@
    		<script src='{{asset('assets/admin/js/jquery.min.js')}}'></script>
    		<script src="{{asset('assets/admin/js/raphael-min.js')}}"></script>
    		<script src="{{asset('assets/admin/js/morris.min.js')}}"></script>
+   		<script src="{{asset('assets/admin/js/saleboss.js')}}"></script>
 <script type="text/javascript">
 	var baseUrl = "{{URL::to('/')}}";
 </script>

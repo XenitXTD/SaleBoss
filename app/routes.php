@@ -64,6 +64,23 @@ Route::group(["namespace" => "Controllers"], function(){
         Route::put('task/action/{task_id}','TaskController@action');
         Route::get('task/edit/{task_id}','TaskController@edit');
         Route::put('task/edit/{task_id}','TaskController@edit');
+        Route::get('folder', array('as' => 'FolderIndex', 'uses' =>'FolderController@index'));
+        Route::put('folder/create', array('as' => 'FolderCreate', 'uses' =>'FolderController@store'));
+        Route::post('folder/item/search', array('as' => 'FolderItemSearchList', 'uses' =>'FolderController@search'));
+        Route::get('folder/item/search', array('as' => 'FolderItemSearchList', 'uses' =>'FolderController@search'));
+        Route::get('folder/item/create', array('as' => 'FolderItemCreate', 'uses' =>'FolderController@itemCreate'));
+        Route::put('folder/item/create', 'FolderController@itemStore');
+        Route::get('folder/{id}', array('as' => 'FolderLettersList', 'uses' =>'FolderController@lettersList'));
+        Route::get('folder/{id}/items', array('as' => 'FolderItemsList', 'uses' =>'FolderController@itemsList'));
+        Route::get('folder/item/{id}', array('as' => 'FolderItem', 'uses' =>'FolderController@itemShow'));
+        Route::get('me/letters', array('as' => 'MyLetterList', 'uses' =>'LetterController@index'));
+        Route::post('letters/search', array('as' => 'LetterSearchList', 'uses' =>'LetterController@indexSearch'));
+        Route::get('letters/search', array('as' => 'LetterSearchList', 'uses' =>'LetterController@indexSearch'));
+        Route::get('me/letters/out', array('as' => 'MyLetterSentList', 'uses' =>'LetterController@indexSent'));
+        Route::get('letters/create', array('as' => 'LetterCreate', 'uses' =>'LetterController@create'));
+        Route::put('letters/create', array('as' => 'LetterCreate', 'uses' =>'LetterController@store'));
+        Route::get('letters/{id}/to/{to_id}', 'LetterController@show');
+        Route::put('letters/action/{letter_id}','LetterController@action');
     });
 });
 
@@ -88,4 +105,15 @@ Route::group(["namespace" => 'Controllers\Opilo'],function(){
 	    Route::put('orders/support_approve/{id}','OrderController@supporterUpdate');
     });
 });
+//
+//Event::listen('illuminate.query', function($sql, $bindings, $time){
+//        echo $sql.'<br>';          // select * from my_table where id=?
+//        print_r($bindings); // Array ( [0] => 4 )
+//        echo $time.'<br>';         // 0.58
+//
+//        // To get the full sql query with bindings inserted
+//        $sql = str_replace(array('%', '?'), array('%%', '%s'), $sql);
+//        $full_sql = vsprintf($sql, $bindings);
+//        Log::info($full_sql);
+//    });
 

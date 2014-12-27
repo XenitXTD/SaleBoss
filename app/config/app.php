@@ -137,7 +137,8 @@ return array(
 		'Laracasts\Validation\ValidationServiceProvider',
 		'Fenos\Notifynder\NotifynderServiceProvider',
 		'SaleBoss\Services\Notification\NotificationServiceProvider',
-		'SaleBoss\Services\Upload\UploadServiceProvider'
+		'SaleBoss\Services\Upload\UploadServiceProvider',
+		'SaleBoss\Services\ViewBuilder\ViewBuilderServiceProvider'
 	),
 
 	/*
@@ -213,6 +214,7 @@ return array(
         'Notificaion'       => 'SaleBoss\Services\Notification\Facades\Notification',
         'Notifynder'    => 'Fenos\Notifynder\Facades\Notifynder',
         'Upload'       => 'SaleBoss\Services\Upload\Facades\Upload',
+        'ViewBuilder'       => 'SaleBoss\Services\ViewBuilder\Facades\ViewBuilder',
 	),
 
 );

@@ -24,4 +24,11 @@ class UploadRepository extends AbstractRepository implements UploadRepositoryInt
         return $model->save();
 
     }
+
+    public function getList($forId, $fortype)
+    {
+        $query = $this->model->newInstance();
+
+        return $query->where('for_id', $forId)->where('for_type', $fortype)->get();
+    }
 }

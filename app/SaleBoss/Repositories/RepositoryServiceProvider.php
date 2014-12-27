@@ -79,5 +79,26 @@ class RepositoryServiceProvider extends ServiceProvider {
 			'SaleBoss\Repositories\UploadRepositoryInterface',
 			'SaleBoss\Repositories\Eloquent\UploadRepository'
 		);
+
+		$this->app->bind(
+			'SaleBoss\Repositories\FolderRepositoryInterface',
+			'SaleBoss\Repositories\Eloquent\FolderRepository'
+		);
+
+		$this->app->bind(
+			'SaleBoss\Repositories\LetterRepositoryInterface',
+			'SaleBoss\Repositories\Eloquent\LetterRepository'
+		);
+
+		$this->app->bind(
+			'SaleBoss\Repositories\LetterPathRepositoryInterface',
+			'SaleBoss\Repositories\Eloquent\LetterPathRepository'
+		);
+
+		$this->app->bind(
+			'SaleBoss\Repositories\LetterLogRepositoryInterface',
+			'SaleBoss\Repositories\Eloquent\LetterLogRepository'
+		);
+
 	}
 }

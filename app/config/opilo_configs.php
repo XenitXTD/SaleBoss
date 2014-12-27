@@ -58,6 +58,8 @@
         'Lead' => 'SaleBoss\Models\Lead',
         'User' =>  'SaleBoss\Models\User',
         'Task' =>  'SaleBoss\Models\Task',
-        'TaskMessages' => 'SaleBoss\Models\TaskMessages'
+        'TaskMessages' => 'SaleBoss\Models\TaskMessages',
+        'Letter' => 'SaleBoss\Models\Letter',
+        'FolderItem' => 'SaleBoss\Models\FolderItem'
     ),
 );
