@@ -73,7 +73,7 @@ class FolderRepository extends AbstractRepository implements FolderRepositoryInt
                                  [
                                      'for_id'   => $model->id,
                                      'for_type' => Config::get('opilo_configs.notifications_types.FolderItem'),
-                                     'path'     =>  'folders/items/'.$creator_id.'/letters'
+                                     'path'     =>  'files/folders/items/'.$creator_id
                                  ]);
             }
         }
