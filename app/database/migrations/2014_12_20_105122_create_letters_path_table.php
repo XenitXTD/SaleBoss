@@ -14,7 +14,7 @@ class CreateLettersPathTable extends Migration {
 	{
 		Schema::create('letters_path',function(Blueprint $t){
 				$t->increments('id');
-				$t->integer('letter_id');
+				$t->integer('letter_id')->unsigned()->nullable();
 				$t->integer('start')->unsigned()->nullable();
 				$t->integer('destination')->unsigned()->nullable();
 				$t->integer('prev_place')->unsigned()->nullable();
