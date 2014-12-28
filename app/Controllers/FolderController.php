@@ -146,7 +146,7 @@ class FolderController extends BaseController {
     {
         $userId = $this->auth->user()->getId();
 
-        $inputs = Input::except('_token', 'page') ?: null;
+        $inputs = Input::except('_token', 'page', '_url') ?: null;
 
         $items = $this->folderRepo->getSearch($inputs, $userId);
 

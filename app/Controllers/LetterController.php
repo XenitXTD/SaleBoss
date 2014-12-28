@@ -104,7 +104,7 @@ class LetterController extends BaseController {
 
         $userId = $this->auth->user()->getId();
 
-        $inputs = Input::except('_token', 'page') ?: null;
+        $inputs = Input::except('_token', 'page', '_url') ?: null;
 
         $letters = $this->letterRepo->getSearch($inputs);
 
