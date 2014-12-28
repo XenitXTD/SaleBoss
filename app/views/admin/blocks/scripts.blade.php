@@ -3,6 +3,7 @@
    		<script src="{{asset('assets/admin/js/bootstrap.min.js')}}"></script>
    		<script src="{{asset('assets/admin/js/op.min.js')}}"></script>
    		<script src="{{asset('assets/admin/js/op-elements.min.js')}}"></script>
+   		<script src="{{asset('assets/admin/js/jquery.nestable.min.js')}}"></script>
    		{{--<script src="{{asset('assets/admin/js/jquery.slimscroll.min.js')}}"></script>--}}
 {{--   		<script src="{{asset('assets/admin/js/saleboss.js')}}"></script>--}}
 

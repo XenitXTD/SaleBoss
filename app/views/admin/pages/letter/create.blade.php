@@ -83,8 +83,3 @@
 
 </div>
 @stop
-
-@section('scripts')
-	@parent
-	<script src="{{asset('assets/admin/js/jquery.nestable.min.js')}}"></script>
-@stop
