@@ -1,9 +1,11 @@
 <?php namespace SaleBoss\Repositories\Eloquent;
 
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\DB;
 use SaleBoss\Models\Folder;
 use SaleBoss\Models\FolderItem;
 use SaleBoss\Repositories\FolderRepositoryInterface;
+use SaleBoss\Repositories\LetterRepositoryInterface;
 use SaleBoss\Services\Upload\Facades\Upload;
 
 class FolderRepository extends AbstractRepository implements FolderRepositoryInterface {
@@ -12,13 +14,25 @@ class FolderRepository extends AbstractRepository implements FolderRepositoryInt
 
     protected $modelItem;
 
+    /**
+     * @var LetterRepositoryInterface
+     */
+    private $letterRepo;
+
+    /**
+     * @param Folder                    $folder
+     * @param FolderItem                $folderItem
+     * @param LetterRepositoryInterface $letterRepository
+     */
     function __construct(
         Folder $folder,
-        FolderItem $folderItem
+        FolderItem $folderItem,
+        LetterRepositoryInterface $letterRepository
     )
     {
         $this->model = $folder;
         $this->modelItem = $folderItem;
+        $this->letterRepo = $letterRepository;
     }
 
     public function getList($model, $id)
@@ -113,5 +127,55 @@ class FolderRepository extends AbstractRepository implements FolderRepositoryInt
             $query = $query->where('creator_id', $userId);
 
         return $query->get();
+    }
+
+    public function update($id, $input)
+    {
+        $model = $this->model->newInstance()->find($id);
+        if(is_null($model)){
+            throw new NotFoundException("No Folder with id: [{$id}] found");
+        }
+        $model->name = $input['name'];
+        $model->parent_id = ($input['parent_id'] == 0) ? Null : $input['parent_id'];
+        return $model->save();
+    }
+
+    public function delete($id)
+    {
+
+        $model = $this->model->newInstance()->find($id);
+
+        if($model)
+        {
+            $this->letterRepo->changeForDeleteFolder($id);
+            $this->changeItemsForDeleteFolder($id);
+            $this->removeParent($id);
+            return $model->delete();
+        } else
+            return false;
+
+    }
+
+    private function changeItemsForDeleteFolder($id)
+    {
+        $query = $this->modelItem->newInstance()->get();
+        $model = $this->modelItem->newInstance();
+
+        foreach($query as $key => $value)
+        {
+            if(in_array($id, array_values(json_decode($value->for_id))))
+            {
+                $model->where('id', $value->id)->update(['for_id' => json_encode(array_values(array_diff(json_decode($value->for_id), [$id])))]);
+            }
+        }
+
+        return $model;
+    }
+
+    private function removeParent($id)
+    {
+        $model = $this->model->newInstance();
+
+        return $model->where('parent_id', $id)->update(['parent_id' => 0]);
     }
 }

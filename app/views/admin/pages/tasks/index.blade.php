@@ -51,7 +51,7 @@
                     </thead>
                     <tbody>
                         @foreach($tasks['forMe'] as $task)
-                            <tr @if(!$task->status) class="success" @endif>
+                            <tr @if($task->status == 0) class="warning" @elseif($task->status == 1) class="info" @else class="success" @endif>
                                 <td>{{$task->id}}</td>
                                 <td class="languageLeft">{{$task->creator->first_name}} {{$task->creator->last_name}}</td>
                                 <td>{{empty($task->description) ? 'ندارد' : softTrim($task->description,50)}}</td>
@@ -88,7 +88,7 @@
                             </thead>
                             <tbody>
                                 @foreach($tasks['byMe'] as $task)
-                                    <tr @if(!$task->status) class="success" @endif>
+                                    <tr @if($task->status == 0) class="warning" @elseif($task->status == 1) class="info" @else class="success" @endif>
                                         <td>{{$task->id}}</td>
                                         <td class="languageLeft">{{$task->forWhom->first_name}} {{$task->forWhom->last_name}}</td>
                                         <td>{{empty($task->description) ? 'ندارد' : softTrim($task->description,50)}}</td>

@@ -1,7 +1,4 @@
-<?php
-
-namespace SaleBoss\Services\Validator;
-
+<?php namespace SaleBoss\Services\Validator;
 
 class LetterValidator extends AbstractValidator {
 	protected $rules = [

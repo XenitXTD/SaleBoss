@@ -65,6 +65,7 @@ class GroupRepository extends AbstractRepository implements GroupRepositoryInter
 		$model = $this->model->newInstance();
 		$model->name = $data['name'];
 		$model->display_name = $data['display_name'];
+		$model->parent_id = ($data['parent_id'] == 0) ? Null : $data['parent_id'];
 		return $model->save();
 	}
 
@@ -85,6 +86,7 @@ class GroupRepository extends AbstractRepository implements GroupRepositoryInter
 		}
 		$model->name = $data['name'];
 		$model->display_name = $data['display_name'];
+		$model->parent_id = ($data['parent_id'] == 0) ? Null : $data['parent_id'];
 		return $model->save();
 	}
 

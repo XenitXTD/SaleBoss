@@ -1,6 +1,7 @@
 <?php namespace SaleBoss\Repositories;
 
-interface LetterRepositoryInterface {
+interface
+LetterRepositoryInterface {
 
     public function getList($folderId);
 
@@ -19,4 +20,6 @@ interface LetterRepositoryInterface {
     public function findByIdAndDestination($id, $toId);
 
     public function getSearch($input);
+
+    public function changeForDeleteFolder($id);
 }

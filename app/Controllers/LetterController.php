@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Lang;
-use SaleBoss\Repositories\Eloquent\UploadRepository;
 use SaleBoss\Repositories\FolderRepositoryInterface;
 use SaleBoss\Repositories\GroupRepositoryInterface;
 use SaleBoss\Repositories\LetterLogRepositoryInterface;
@@ -13,7 +12,6 @@ use SaleBoss\Services\Authenticator\AuthenticatorInterface;
 use SaleBoss\Services\Folder\FolderListCommand;
 use SaleBoss\Services\Letter\LetterActionsCommand;
 use SaleBoss\Services\Letter\LetterStoreCommand;
-use SaleBoss\Services\Upload\Facades\Upload;
 use SaleBoss\Services\Validator\LetterValidator;
 
 class LetterController extends BaseController {

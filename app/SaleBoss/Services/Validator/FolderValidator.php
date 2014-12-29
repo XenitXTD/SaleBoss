@@ -3,8 +3,9 @@
 namespace SaleBoss\Services\Validator;
 
 
-class LetterValidator extends AbstractValidator {
+class FolderValidator extends AbstractValidator {
 	protected $rules = [
-		'destination'     =>  'required',
+		'name'     =>  'required',
+	    'parent_id' => 'required|integer'
 	];
 } 

@@ -65,7 +65,9 @@
                            {{$letter->destinationP->display_name}}
                         </td>
                         <td>
-                           {{$letter->folder()->first()->name}}
+                           @if(!is_null($letter->folder_id)){{$letter->folder()->first()->name}} @else
+                            از بایگانی خارج شده است
+                            @endif
                         </td>
                         <td>
                            {{$letter->jalaliTimeDate('created_at')}}

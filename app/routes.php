@@ -66,6 +66,9 @@ Route::group(["namespace" => "Controllers"], function(){
         Route::put('task/edit/{task_id}','TaskController@edit');
         Route::get('folder', array('as' => 'FolderIndex', 'uses' =>'FolderController@index'));
         Route::put('folder/create', array('as' => 'FolderCreate', 'uses' =>'FolderController@store'));
+        Route::put('folder/edit/{id}', 'FolderController@update');
+        Route::get('folder/edit/{id}', 'FolderController@edit');
+        Route::get('folder/delete/{id}', 'FolderController@delete');
         Route::post('folder/item/search', array('as' => 'FolderItemSearchList', 'uses' =>'FolderController@search'));
         Route::get('folder/item/search', array('as' => 'FolderItemSearchList', 'uses' =>'FolderController@search'));
         Route::get('folder/item/create', array('as' => 'FolderItemCreate', 'uses' =>'FolderController@itemCreate'));

@@ -40,15 +40,14 @@ class FolderBuilder extends Builder implements BuilderInterface {
     }
 
 
-    public function FolderSelectView($collection)
+    public function FolderSelectView($collection, $parent = 0, $level = 0)
     {
         foreach($collection as $menu){
-            if($menu['parent_id'] == 0){
-                $prefix = '';
-            }else {
-                $prefix = '-----';
+            if($menu['parent_id'] == $parent)
+            {
+                $this->output .= '<option value="'.$menu['id'].'">'.str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;',$level).$menu['name'].'</option>';
+                $this->FolderSelectView($collection, $menu['id'], $level+1);
             }
-            $this->output .= '<option value="'.$menu['id'].'">'.$prefix.$menu['name'].'</option>';
         }
 
         return $this->output;
@@ -65,7 +64,17 @@ class FolderBuilder extends Builder implements BuilderInterface {
 
                 if ($currLevel == $prevLevel) $this->output .= " </li> ";
 
-                $this->output .= '<li class="dd-item"><div class="dd-handle"><a href="'.URL::route('FolderIndex').'/'.$object->id.'/items">'.$object->name .'</a></div>';
+                $this->output .= '<li class="dd-item"><div class="dd-handle"><a href="'.URL::route('FolderIndex').'/'.$object->id.'/items">'.$object->name .'</a>
+                                    <div class="pull-left action-buttons">
+                                        <a class="blue" href="'.URL::route('FolderIndex').'/edit/'.$object->id.'">
+                                            <i class="ace-icon fa fa-pencil bigger-130"></i>
+                                        </a>
+
+                                        <a class="red" href="'.URL::route('FolderIndex').'/delete/'.$object->id.'">
+                                            <i class="ace-icon fa fa-trash-o bigger-130"></i>
+                                        </a>
+                                    </div>
+                        </div>';
 
                 if ($currLevel > $prevLevel) { $prevLevel = $currLevel; }
 
@@ -96,7 +105,17 @@ class FolderBuilder extends Builder implements BuilderInterface {
 
                 if ($currLevel == $prevLevel) $this->output .= " </li> ";
 
-                $this->output .= '<li class="dd-item"><div class="dd-handle"><a href="'.URL::route('FolderIndex').'/'.$object->id.'">'.$object->name .'</a></div>';
+                $this->output .= '<li class="dd-item"><div class="dd-handle"><a href="'.URL::route('FolderIndex').'/'.$object->id.'">'.$object->name .'</a>
+                                    <div class="pull-left action-buttons">
+                                        <a class="blue" href="'.URL::route('FolderIndex').'/edit/'.$object->id.'">
+                                            <i class="ace-icon fa fa-pencil bigger-130"></i>
+                                        </a>
+
+                                        <a class="red" href="'.URL::route('FolderIndex').'/delete/'.$object->id.'">
+                                            <i class="ace-icon fa fa-trash-o bigger-130"></i>
+                                        </a>
+                                    </div>
+                        </div>';
 
                 if ($currLevel > $prevLevel) { $prevLevel = $currLevel; }
 

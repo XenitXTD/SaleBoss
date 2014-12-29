@@ -12,5 +12,13 @@
 		{{Form::text('item[name]',!empty($update) ? $group->name : null , ['class' => 'form-control languageLeft'])}}
 	</div>
 
+	<div class="form-group">
+    		{{Form::label('item[parent_id]','مرجع')}}<br>
+			<select name="item[parent_id]" class="form-control">
+				<option value="0">ریشه</option>
+                {{ViewBuilder::GroupSelectView($groups)}}
+            </select>
+    	</div>
+
 	{{Form::submit('ثبت',array('class' => 'btn btn-md btn-success radius Nassim'))}}
 {{Form::close()}}

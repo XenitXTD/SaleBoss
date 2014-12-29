@@ -203,4 +203,17 @@ class LetterRepository extends AbstractRepository implements LetterRepositoryInt
                 'letters_path.start'
             ]);
     }
+
+    public function changeForDeleteFolder($folderId)
+    {
+        $model = $this->model->newInstance();
+
+        $model = $model->where('folder_id', $folderId);
+
+        return $model->update(
+            [
+                'folder_id' => Null
+            ]
+        );
+    }
 }

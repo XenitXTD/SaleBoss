@@ -47,7 +47,10 @@
                                                 <div class="col-md-12">
                                                     <label class="control-label Nassim Nassim700 NassimTitle">مرجع: </label>
                                                     <input type="hidden" name="item[for_type]" value="SaleBoss\Models\Group">
-                                                    {{Form::select('item[parent_id]',SaleBoss\Models\Folder::getFolderList('SaleBoss\Models\Group', $userGroupId),['class' => 'form-control'])}}
+                                                    <select name="item[parent_id]">
+                                                         {{ViewBuilder::FolderSelectView($groupFolders)}}
+                                                    </select>
+{{--                                                    {{Form::select('item[parent_id]',SaleBoss\Models\Folder::getFolderList('SaleBoss\Models\Group', $userGroupId),['class' => 'form-control'])}}--}}
                                                 </div>
                                             </div>
                                             <br>
@@ -116,7 +119,9 @@
                                                             <div class="col-md-12">
                                                                 <label class="control-label Nassim Nassim700 NassimTitle">مرجع: </label>
                                                                 <input type="hidden" name="item[for_type]" value="SaleBoss\Models\User">
-                                                                {{Form::select('item[parent_id]',SaleBoss\Models\Folder::getFolderList('SaleBoss\Models\User', $userId),['class' => 'form-control'])}}
+                                                                <select name="item[parent_id]">
+                                                                     {{ViewBuilder::FolderSelectView($userFolders)}}
+                                                                </select>
                                                             </div>
                                                         </div>
                                                         <br>

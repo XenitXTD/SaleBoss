@@ -33,7 +33,8 @@ class GroupController extends BaseController
 	 */
 	public function create()
 	{
-		return $this->view('admin.pages.group.create');
+		$groups = $this->groupRepo->getAll();
+		return $this->view('admin.pages.group.create', compact('groups'));
 	}
 
 	/**
@@ -107,10 +108,11 @@ class GroupController extends BaseController
 	{
 		try {
 			$update = true;
+			$groups = $this->groupRepo->getAll();
 			$group = $this->groupRepo->findById($id);
 			return $this->view(
 				'admin.pages.group.edit',
-				compact('update','group')
+				compact('update','group', 'groups')
 			);
 		}catch (NotFoundException $e){
 			App::abort(404);

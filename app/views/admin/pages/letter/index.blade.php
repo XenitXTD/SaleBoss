@@ -52,7 +52,6 @@
                     <th>شماره نامه</th>
                     <th>موضوع نامه</th>
                     <th>ارسال کننده</th>
-                    <th>دریافت کننده</th>
                     <th>پوشه بایگانی</th>
                     <th>تاریخ ارسال</th>
                 </tr>
@@ -66,10 +65,9 @@
                            {{$letter->path()->first()->startP->display_name}}
                         </td>
                         <td>
-                           {{$letter->destinationP->display_name}}
-                        </td>
-                        <td>
-                           {{$letter->folder()->first()->name}}
+                           @if(!is_null($letter->folder_id)){{$letter->folder()->first()->name}} @else
+                            از بایگانی خارج شده است
+                            @endif
                         </td>
                         <td>
                            {{$letter->jalaliTimeDate('created_at')}}

@@ -16,4 +16,8 @@ interface FolderRepositoryInterface {
 
     public function getSearch($inputs, $userId);
 
+    public function update($id, $input);
+
+    public function delete($id);
+
 }

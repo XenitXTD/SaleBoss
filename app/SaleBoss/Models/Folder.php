@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\DB;
 
 class Folder extends Eloquent {
 
-    protected  $table = 'folders';
+    public  $table = 'folders';
 
     use DateTrait;
 
@@ -21,12 +21,8 @@ class Folder extends Eloquent {
         return $this->belongsTo('SaleBoss\Models\User', 'creator_id');
     }
 
-    public function scopeGetFolderList($q, $forType, $forId, $count = null)
+    public function parent()
     {
-        $root = array('ریشه');
-
-        $q = DB::table($this->table)->where('for_type', $forType)->where('for_id', $forId)->orderBy('id','ASC');
-
-        return $root + $q->lists('name', 'id');
+        return $this->belongsTo('SaleBoss\Models\Folder', 'parent_id');
     }
 }
