@@ -119,6 +119,7 @@ return array(
 	        'message'               =>  '<em><b>متن</b></em>',
 	        'destination'                  =>  '<em><b>دریافت کننده</b></em>',
 	        'folder'                  =>  '<em><b>پوشه بایگانی</b></em>',
+	        'for_id'                  =>  '<em><b>پوشه بایگانی</b></em>'
 		),
 
 );

@@ -13,6 +13,7 @@ use SaleBoss\Services\Folder\FolderItemCreateCommand;
 use SaleBoss\Services\Folder\FolderItemsListCommand;
 use SaleBoss\Services\Folder\FolderListCommand;
 use SaleBoss\Services\Letter\LetterListCommand;
+use SaleBoss\Services\Validator\FolderItemValidator;
 use SaleBoss\Services\Validator\FolderValidator;
 
 class FolderController extends BaseController {
@@ -31,18 +32,25 @@ class FolderController extends BaseController {
     private $folderValidator;
 
     /**
+     * @var FolderItemValidator
+     */
+    private $folderItemValidator;
+
+    /**
      * @param AuthenticatorInterface    $authenticator
      * @param UserRepositoryInterface   $userRepository
      * @param GroupRepositoryInterface  $groupRepository
      * @param FolderRepositoryInterface $folderRepository
      * @param FolderValidator           $folderValidator
+     * @param FolderItemValidator       $folderItemValidator
      */
     function __construct(
         AuthenticatorInterface $authenticator,
         UserRepositoryInterface $userRepository,
         GroupRepositoryInterface $groupRepository,
         FolderRepositoryInterface $folderRepository,
-        FolderValidator $folderValidator
+        FolderValidator $folderValidator,
+        FolderItemValidator $folderItemValidator
     )
     {
         $this->auth = $authenticator;
@@ -50,6 +58,7 @@ class FolderController extends BaseController {
         $this->groupRepo = $groupRepository;
         $this->folderRepo = $folderRepository;
         $this->folderValidator = $folderValidator;
+        $this->folderItemValidator = $folderItemValidator;
     }
 
 	/**
@@ -118,6 +127,12 @@ class FolderController extends BaseController {
 
     public function itemStore()
     {
+
+        $input = Input::get('item');
+        if (!$valid = $this->folderItemValidator->isValid($input)) {
+            return $this->redirectBack()->withInput()->withErrors($this->folderItemValidator->getMessages());
+        }
+
         $input = [
             'name' => Input::get('item')['name'],
             'creator_id' => $this->auth->user()->getId(),
