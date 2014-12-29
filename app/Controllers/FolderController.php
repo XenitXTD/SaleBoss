@@ -100,6 +100,11 @@ class FolderController extends BaseController {
 
     public function store()
     {
+        $input = Input::get('item');
+        if (!$valid = $this->folderValidator->isValid($input)) {
+            return $this->redirectBack()->withInput()->withErrors($this->folderValidator->getMessages());
+        }
+
         $input = [
             'parent_id' => Input::get('item')['parent_id'],
             'name' => Input::get('item')['name'],
