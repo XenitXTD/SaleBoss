@@ -104,7 +104,7 @@ class LetterRepository extends AbstractRepository implements LetterRepositoryInt
                                  [
                                      'for_id'   => $model->id,
                                      'for_type' => Config::get('opilo_configs.notifications_types.Letter'),
-                                     'path'     =>  'files/letters'
+                                     'path'     =>  'files/letters/'.$model->id
                                  ]);
             }
 
